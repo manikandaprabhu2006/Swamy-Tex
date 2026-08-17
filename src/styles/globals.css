@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ :root {
+  color-scheme: dark;
+  --bg-primary: 8 8 8;
+  --bg-secondary: 17 17 17;
+  --bg-card: 21 21 21;
+  --bg-card-2: 27 27 27;
+  --gold: 201 162 39;
+  --gold-soft: 224 193 90;
+  --ivory: 245 241 232;
+  --ink-primary: 255 255 255;
+  --ink-secondary: 168 168 168;
+  --line: 201 162 39;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+  --bg-primary: 248 246 240;
+  --bg-secondary: 255 255 255;
+  --bg-card: 255 255 255;
+  --bg-card-2: 241 238 230;
+  --gold: 160 119 20;
+  --gold-soft: 196 151 38;
+  --ivory: 255 253 247;
+  --ink-primary: 24 24 24;
+  --ink-secondary: 91 91 91;
+  --line: 150 130 85;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-bg-primary text-ink-primary font-sans antialiased;
+  font-feature-settings: "ss01", "cv01";
+}
+
+
+
+::selection {
+  background: rgba(201, 162, 39, 0.3);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #1b1b1b;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a227;
+}
+
+@layer components {
+  .container-edge {
+    @apply mx-auto w-full max-w-edge px-5 sm:px-8 lg:px-12;
+  }
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-gold bg-gold px-7 py-3 text-xs font-semibold uppercase tracking-luxe text-bg-primary transition-all duration-300 hover:bg-transparent hover:text-gold;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-line px-7 py-3 text-xs font-semibold uppercase tracking-luxe text-ink-primary transition-all duration-300 hover:border-gold hover:text-gold;
+  }
+  .btn-outline-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-none border border-gold px-7 py-3 text-xs font-semibold uppercase tracking-luxe text-gold transition-all duration-300 hover:bg-gold hover:text-bg-primary;
+  }
+  .input-luxe {
+    @apply w-full rounded-none border border-line bg-bg-secondary px-4 py-3 text-sm text-ink-primary placeholder:text-ink-secondary/60 focus:border-gold focus:outline-none focus:ring-0;
+  }
+  .label-luxe {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-wider2 text-ink-secondary;
+  }
+  .card-product {
+    @apply relative overflow-hidden border border-line bg-bg-card transition-all duration-500 hover:border-gold/60;
+  }
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-luxe text-gold;
+  }
+  .gold-gradient {
+    background: linear-gradient(105deg, #7a5b12 0%, #c9a227 30%, #fff1a8 50%, #e0c15a 68%, #8c6a16 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .gold-shine {
+    background: linear-gradient(105deg, #8c6a16, #c9a227 32%, #fff4b0 50%, #e0c15a 68%, #8c6a16);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gold-shimmer 5s linear infinite;
+  }
+  .heading-display {
+    @apply font-display font-light leading-tight;
+  }
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gold after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.5), transparent);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .clip-reveal {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #151515 25%, #1b1b1b 50%, #151515 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 220% center; }
+}
+html:not(.dark) .bg-bg-primary\/95 { background-color: rgb(var(--bg-primary) / .95); }
+html:not(.dark) .bg-bg-primary\/98 { background-color: rgb(var(--bg-primary) / .98); }
+@media (prefers-reduced-motion: reduce) {
+  .gold-shine { animation: none; }
+}

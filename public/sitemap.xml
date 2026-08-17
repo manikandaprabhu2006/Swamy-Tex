@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://swamytex.in/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://swamytex.in/shop</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://swamytex.in/men</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swamytex.in/women</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swamytex.in/kids</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swamytex.in/group-shirts</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swamytex.in/new-arrivals</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swamytex.in/offers</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://swamytex.in/about</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://swamytex.in/contact</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://swamytex.in/track-order</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://swamytex.in/privacy-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://swamytex.in/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://swamytex.in/shipping-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://swamytex.in/refund-policy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
