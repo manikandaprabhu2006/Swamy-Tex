@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { AuthProvider } from "@/features/auth/AuthContext";
 import { ThemeProvider } from "@/features/theme/ThemeContext";
@@ -68,6 +69,45 @@ function ScrollToTop() {
 }
 
 /* =========================================================
+   Page Transition
+========================================================= */
+
+function PageTransition({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={location.pathname}
+        initial={{
+          opacity: 0,
+          y: 18,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        exit={{
+          opacity: 0,
+          y: -8,
+        }}
+        transition={{
+          duration: 0.45,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="min-h-screen"
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+/* =========================================================
    App
 ========================================================= */
 
@@ -78,302 +118,327 @@ export default function App() {
         <ToastProvider>
           <CartProvider>
             <WishlistProvider>
+
               <ScrollToTop />
 
-              {/* Global Navbar */}
+              {/* =================================================
+                  GLOBAL NAVBAR
+              ================================================= */}
+
               <Navbar />
 
-              {/* Main Application */}
+              {/* =================================================
+                  MAIN APPLICATION
+              ================================================= */}
+
               <main className="min-h-screen">
-                <Routes>
 
-                  {/* =================================================
-                      HOME
-                  ================================================= */}
+                <PageTransition>
 
-                  <Route path="/" element={<Home />} />
+                  <Routes>
 
-                  {/* =================================================
-                      SHOP
-                  ================================================= */}
+                    {/* =================================================
+                        HOME
+                    ================================================= */}
 
-                  <Route path="/shop" element={<Shop />} />
+                    <Route
+                      path="/"
+                      element={<Home />}
+                    />
 
-                  {/* =================================================
-                      CATEGORIES
-                  ================================================= */}
+                    {/* =================================================
+                        SHOP
+                    ================================================= */}
 
-                  <Route
-                    path="/men"
-                    element={
-                      <CategoryPage
-                        categorySlug="men"
-                        title="Men's Collection"
+                    <Route
+                      path="/shop"
+                      element={<Shop />}
+                    />
+
+                    {/* =================================================
+                        CATEGORIES
+                    ================================================= */}
+
+                    <Route
+                      path="/men"
+                      element={
+                        <CategoryPage
+                          categorySlug="men"
+                          title="Men's Collection"
+                        />
+                      }
+                    />
+
+                    <Route
+                      path="/women"
+                      element={
+                        <CategoryPage
+                          categorySlug="women"
+                          title="Women's Collection"
+                        />
+                      }
+                    />
+
+                    <Route
+                      path="/kids"
+                      element={
+                        <CategoryPage
+                          categorySlug="kids"
+                          title="Kids Collection"
+                        />
+                      }
+                    />
+
+                    <Route
+                      path="/group-shirts"
+                      element={
+                        <CategoryPage
+                          categorySlug="group-shirts"
+                          title="Group Shirts"
+                        />
+                      }
+                    />
+
+                    <Route
+                      path="/new-arrivals"
+                      element={
+                        <CategoryPage
+                          flag="new"
+                          title="New Arrivals"
+                        />
+                      }
+                    />
+
+                    <Route
+                      path="/offers"
+                      element={
+                        <CategoryPage
+                          flag="offer"
+                          title="Offers"
+                        />
+                      }
+                    />
+
+                    {/* =================================================
+                        PRODUCT
+                    ================================================= */}
+
+                    <Route
+                      path="/product/:slug"
+                      element={<ProductDetail />}
+                    />
+
+                    {/* =================================================
+                        CART / WISHLIST
+                    ================================================= */}
+
+                    <Route
+                      path="/cart"
+                      element={<Cart />}
+                    />
+
+                    <Route
+                      path="/wishlist"
+                      element={<Wishlist />}
+                    />
+
+                    {/* =================================================
+                        AUTHENTICATED SHOPPING
+                    ================================================= */}
+
+                    <Route
+                      path="/checkout"
+                      element={
+                        <RequireAuth>
+                          <Checkout />
+                        </RequireAuth>
+                      }
+                    />
+
+                    <Route
+                      path="/orders"
+                      element={
+                        <RequireAuth>
+                          <Orders />
+                        </RequireAuth>
+                      }
+                    />
+
+                    <Route
+                      path="/orders/:id"
+                      element={
+                        <RequireAuth>
+                          <OrderDetail />
+                        </RequireAuth>
+                      }
+                    />
+
+                    {/* =================================================
+                        ORDER TRACKING
+                    ================================================= */}
+
+                    <Route
+                      path="/track-order"
+                      element={<TrackOrder />}
+                    />
+
+                    {/* =================================================
+                        PROFILE
+                    ================================================= */}
+
+                    <Route
+                      path="/profile"
+                      element={<Profile />}
+                    />
+
+                    <Route
+                      path="/profile/addresses"
+                      element={
+                        <RequireAuth>
+                          <Addresses />
+                        </RequireAuth>
+                      }
+                    />
+
+                    {/* =================================================
+                        AUTHENTICATION
+                    ================================================= */}
+
+                    <Route
+                      path="/login"
+                      element={<Login />}
+                    />
+
+                    <Route
+                      path="/signup"
+                      element={<Signup />}
+                    />
+
+                    <Route
+                      path="/forgot-password"
+                      element={<ForgotPassword />}
+                    />
+
+                    <Route
+                      path="/auth/callback"
+                      element={<AuthCallback />}
+                    />
+
+                    {/* =================================================
+                        INFORMATION PAGES
+                    ================================================= */}
+
+                    <Route
+                      path="/about"
+                      element={<About />}
+                    />
+
+                    <Route
+                      path="/contact"
+                      element={<Contact />}
+                    />
+
+                    {/* =================================================
+                        POLICIES
+                    ================================================= */}
+
+                    <Route
+                      path="/privacy-policy"
+                      element={
+                        <PolicyPage kind="privacy" />
+                      }
+                    />
+
+                    <Route
+                      path="/terms"
+                      element={
+                        <PolicyPage kind="terms" />
+                      }
+                    />
+
+                    <Route
+                      path="/shipping-policy"
+                      element={
+                        <PolicyPage kind="shipping" />
+                      }
+                    />
+
+                    <Route
+                      path="/refund-policy"
+                      element={
+                        <PolicyPage kind="refund" />
+                      }
+                    />
+
+                    {/* =================================================
+                        ADMIN
+                    ================================================= */}
+
+                    <Route
+                      path="/admin"
+                      element={<AdminLayout />}
+                    >
+                      <Route
+                        index
+                        element={<AdminDashboard />}
                       />
-                    }
-                  />
 
-                  <Route
-                    path="/women"
-                    element={
-                      <CategoryPage
-                        categorySlug="women"
-                        title="Women's Collection"
+                      <Route
+                        path="products"
+                        element={<AdminProducts />}
                       />
-                    }
-                  />
 
-                  <Route
-                    path="/kids"
-                    element={
-                      <CategoryPage
-                        categorySlug="kids"
-                        title="Kids Collection"
+                      <Route
+                        path="products/new"
+                        element={<AdminProductEdit />}
                       />
-                    }
-                  />
 
-                  <Route
-                    path="/group-shirts"
-                    element={
-                      <CategoryPage
-                        categorySlug="group-shirts"
-                        title="Group Shirts"
+                      <Route
+                        path="products/:id"
+                        element={<AdminProductEdit />}
                       />
-                    }
-                  />
 
-                  <Route
-                    path="/new-arrivals"
-                    element={
-                      <CategoryPage
-                        flag="new"
-                        title="New Arrivals"
+                      <Route
+                        path="orders"
+                        element={<AdminOrders />}
                       />
-                    }
-                  />
 
-                  <Route
-                    path="/offers"
-                    element={
-                      <CategoryPage
-                        flag="offer"
-                        title="Offers"
+                      <Route
+                        path="customers"
+                        element={<AdminCustomers />}
                       />
-                    }
-                  />
 
-                  {/* =================================================
-                      PRODUCT
-                  ================================================= */}
+                      <Route
+                        path="categories"
+                        element={<AdminCategories />}
+                      />
+                    </Route>
 
-                  <Route
-                    path="/product/:slug"
-                    element={<ProductDetail />}
-                  />
-
-                  {/* =================================================
-                      CART / WISHLIST
-                  ================================================= */}
-
-                  <Route
-                    path="/cart"
-                    element={<Cart />}
-                  />
-
-                  <Route
-                    path="/wishlist"
-                    element={<Wishlist />}
-                  />
-
-                  {/* =================================================
-                      AUTHENTICATED SHOPPING
-                  ================================================= */}
-
-                  <Route
-                    path="/checkout"
-                    element={
-                      <RequireAuth>
-                        <Checkout />
-                      </RequireAuth>
-                    }
-                  />
-
-                  <Route
-                    path="/orders"
-                    element={
-                      <RequireAuth>
-                        <Orders />
-                      </RequireAuth>
-                    }
-                  />
-
-                  <Route
-                    path="/orders/:id"
-                    element={
-                      <RequireAuth>
-                        <OrderDetail />
-                      </RequireAuth>
-                    }
-                  />
-
-                  {/* =================================================
-                      ORDER TRACKING
-                  ================================================= */}
-
-                  <Route
-                    path="/track-order"
-                    element={<TrackOrder />}
-                  />
-
-                  {/* =================================================
-                      PROFILE
-                  ================================================= */}
-
-                  <Route
-                    path="/profile"
-                    element={<Profile />}
-                  />
-
-                  <Route
-                    path="/profile/addresses"
-                    element={
-                      <RequireAuth>
-                        <Addresses />
-                      </RequireAuth>
-                    }
-                  />
-
-                  {/* =================================================
-                      AUTHENTICATION
-                  ================================================= */}
-
-                  <Route
-                    path="/login"
-                    element={<Login />}
-                  />
-
-                  <Route
-                    path="/signup"
-                    element={<Signup />}
-                  />
-
-                  <Route
-                    path="/forgot-password"
-                    element={<ForgotPassword />}
-                  />
-
-                  <Route
-                    path="/auth/callback"
-                    element={<AuthCallback />}
-                  />
-
-                  {/* =================================================
-                      INFORMATION PAGES
-                  ================================================= */}
-
-                  <Route
-                    path="/about"
-                    element={<About />}
-                  />
-
-                  <Route
-                    path="/contact"
-                    element={<Contact />}
-                  />
-
-                  {/* =================================================
-                      POLICIES
-                  ================================================= */}
-
-                  <Route
-                    path="/privacy-policy"
-                    element={
-                      <PolicyPage kind="privacy" />
-                    }
-                  />
-
-                  <Route
-                    path="/terms"
-                    element={
-                      <PolicyPage kind="terms" />
-                    }
-                  />
-
-                  <Route
-                    path="/shipping-policy"
-                    element={
-                      <PolicyPage kind="shipping" />
-                    }
-                  />
-
-                  <Route
-                    path="/refund-policy"
-                    element={
-                      <PolicyPage kind="refund" />
-                    }
-                  />
-
-                  {/* =================================================
-                      ADMIN
-                  ================================================= */}
-
-                  <Route
-                    path="/admin"
-                    element={<AdminLayout />}
-                  >
-                    <Route
-                      index
-                      element={<AdminDashboard />}
-                    />
+                    {/* =================================================
+                        404
+                    ================================================= */}
 
                     <Route
-                      path="products"
-                      element={<AdminProducts />}
+                      path="*"
+                      element={<NotFound />}
                     />
 
-                    <Route
-                      path="products/new"
-                      element={<AdminProductEdit />}
-                    />
+                  </Routes>
 
-                    <Route
-                      path="products/:id"
-                      element={<AdminProductEdit />}
-                    />
+                </PageTransition>
 
-                    <Route
-                      path="orders"
-                      element={<AdminOrders />}
-                    />
-
-                    <Route
-                      path="customers"
-                      element={<AdminCustomers />}
-                    />
-
-                    <Route
-                      path="categories"
-                      element={<AdminCategories />}
-                    />
-                  </Route>
-
-                  {/* =================================================
-                      404
-                  ================================================= */}
-
-                  <Route
-                    path="*"
-                    element={<NotFound />}
-                  />
-
-                </Routes>
               </main>
 
-              {/* Global Footer */}
+              {/* =================================================
+                  GLOBAL FOOTER
+              ================================================= */}
+
               <Footer />
 
-              {/* AI Fashion Assistant */}
+              {/* =================================================
+                  AI FASHION ASSISTANT
+              ================================================= */}
+
               <StyleAssistant />
 
             </WishlistProvider>
